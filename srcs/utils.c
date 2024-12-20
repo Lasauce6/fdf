@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 16:15:32 by rbaticle          #+#    #+#             */
-/*   Updated: 2024/12/20 15:04:37 by rbaticle         ###   ########.fr       */
+/*   Created: 2024/12/20 15:00:53 by rbaticle          #+#    #+#             */
+/*   Updated: 2024/12/20 15:03:07 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../includes/fdf.h"
 
-# include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
-# include <stdint.h>
-
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 300
-# define MLX_ERROR 1
-
-#endif
+int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+{
+	return (red << 16 | green << 16 | blue << 16);
+}

@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:06:00 by rbaticle          #+#    #+#              #
-#    Updated: 2024/12/19 16:49:39 by rbaticle         ###   ########.fr        #
+#    Updated: 2024/12/20 15:08:06 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,13 @@ $(LIBX):
 	@make -C $(LIBX_DIR)
 
 $(NAME): $(LFT) $(LIBX) $(OBJS) $(HEADERS)
-	$(CC) $(CFLAGS) $(OBJS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lmlx -I $(LIBX_DIR) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -o $(NAME)
 
 debug: $(LFT) $(LIBX) $(HEADERS)
-	$(CC) $(CFLAGS) -g $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lmlx -I $(LIBX_DIR) -o $(NAME)
+	$(CC) $(CFLAGS) -g $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) lX11 -lXext -lmlx -o $(NAME)
 
 fsanitize: $(LFT) $(LIBX) $(HEADERS)
-	$(CC) $(CFLAGS) -g -fsanitize=address $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lmlx -I $(LIBX_DIR) -o $(NAME)
+	$(CC) $(CFLAGS) -g -fsanitize=address $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
