@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 15:00:53 by rbaticle          #+#    #+#             */
-/*   Updated: 2024/12/23 15:31:24 by rbaticle         ###   ########.fr       */
+/*   Created: 2024/12/23 13:38:30 by rbaticle          #+#    #+#             */
+/*   Updated: 2024/12/23 13:43:41 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+int	ft_close_win(t_data *data)
 {
-	return (red << 16 | green << 16 | blue << 16);
-}
-
-void	free_split(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	exit(0);
 }

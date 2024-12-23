@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:06:00 by rbaticle          #+#    #+#              #
-#    Updated: 2024/12/20 15:08:06 by rbaticle         ###   ########.fr        #
+#    Updated: 2024/12/23 13:56:06 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,9 @@ LIBX = $(addprefix $(LIBX_DIR), libmlx.a)
 INCLUDES = ./includes/
 HEADERS_NAMES = fdf.h
 HEADERS = $(addprefix $(INCLUDES), $(HEADERS_NAMES))
-SRCS_NAMES = main.c
+SRCS_NAMES = utils.c controls.c draw.c
 SRCS_DIR = ./srcs/
-SRCS = $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
+SRCS = main.c $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -37,13 +37,13 @@ $(LIBX):
 	@make -C $(LIBX_DIR)
 
 $(NAME): $(LFT) $(LIBX) $(OBJS) $(HEADERS)
-	$(CC) $(CFLAGS) $(OBJS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -lm -o $(NAME)
 
 debug: $(LFT) $(LIBX) $(HEADERS)
-	$(CC) $(CFLAGS) -g $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) lX11 -lXext -lmlx -o $(NAME)
+	$(CC) $(CFLAGS) -g $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -lm -o $(NAME)
 
 fsanitize: $(LFT) $(LIBX) $(HEADERS)
-	$(CC) $(CFLAGS) -g -fsanitize=address $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -o $(NAME)
+	$(CC) $(CFLAGS) -g -fsanitize=address $(SRCS) -L $(LFT_DIR) -lft -I $(INCLUDES) -L $(LIBX_DIR) -lX11 -lXext -lmlx -lm -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
