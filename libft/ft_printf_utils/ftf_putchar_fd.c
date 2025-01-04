@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ftf_putchar_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 16:15:32 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 20:37:58 by rbaticle         ###   ########.fr       */
+/*   Created: 2024/09/27 00:00:23 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/01/04 20:17:10 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../libft.h"
 
-// Local headers
-# include "macros.h"
-# include "functions.h"
-
-// Libft and ft_printf
-# include "../libft/libft.h"
-
-//Minilibx
-# include "../minilibx-linux/mlx.h"
-
-// C libs
-# include <stdint.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
-# include <math.h>
-# include <fcntl.h>
-# include <limits.h>
-
-#endif
+int	ftf_putchar_fd(char c, int fd)
+{
+	return (write(fd, &c, 1));
+}

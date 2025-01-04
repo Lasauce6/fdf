@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:54:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/02 16:41:22 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:18:19 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -68,12 +69,27 @@ void	ft_lstclear(t_list **lst, void (*del) (void *));
 void	ft_lstiter(t_list *lst, void (*f) (void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f) (void *), void (*del) (void *));
 
-// get next line
+// get_next_line
 char	*get_next_line(int fd);
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
 # endif
 
-int		ft_atoi_base(char *str, char *base);
+// ft_printf
+# define FT_PRINTF_H
+# define BASE16_L "0123456789abcdef"
+# define BASE16_U "0123456789ABCDEF"
+
+# ifdef __unix__
+#  define NULL_PTR "(nil)"
+# endif
+# ifdef __APPLE__
+#  define NULL_PTR "0x0"
+# endif
+
+int		ftf_putstr_fd(char *s, int fd);
+int		ftf_putnbr_fd(long n, int fd);
+int		ftf_putchar_fd(char c, int fd);
+int		ft_printf(const char *str, ...);
 
 #endif

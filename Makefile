@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:06:00 by rbaticle          #+#    #+#              #
-#    Updated: 2025/01/03 13:14:27 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/01/04 20:36:58 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(LFT):
-	@make -C $(LFT_DIR)
+	@make printf_gnl -C $(LFT_DIR)
 
 $(LIBX):
 	@make -C $(LIBX_DIR)
