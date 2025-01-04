@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:06:00 by rbaticle          #+#    #+#              #
-#    Updated: 2024/12/23 13:56:06 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/01/03 13:14:27 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,12 @@ LIBX = $(addprefix $(LIBX_DIR), libmlx.a)
 INCLUDES = ./includes/
 HEADERS_NAMES = fdf.h
 HEADERS = $(addprefix $(INCLUDES), $(HEADERS_NAMES))
-SRCS_NAMES = utils.c controls.c draw.c
+SRCS_NAMES = utils.c error.c parsing.c \
+			 free.c init_data.c init_mlx.c \
+			 draw.c handle_keypress.c bresenham.c \
+			 colors.c transformation.c rotation.c
 SRCS_DIR = ./srcs/
-SRCS = main.c $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
+SRCS = main.c ./ft_printf/ft_printf.c $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

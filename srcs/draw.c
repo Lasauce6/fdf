@@ -5,53 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 13:45:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2024/12/23 13:58:04 by rbaticle         ###   ########.fr       */
+/*   Created: 2025/01/02 17:48:11 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/01/04 12:15:46 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void	img_pix_put(t_img *img, int x, int y, int color)
+static void	draw_menu(t_data *data)
 {
-	char	*pixel;
-	int		i;
+	void	*mlx_ptr;
+	void	*win;
+	int		vp;
 
-	i = img->bpp - 8;
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
-	{
-		if (img->endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-		i -= 8;
-	}
+	mlx_ptr = data->mlx_ptr;
+	win = data->win;
+	vp = 20;
+	mlx_string_put(mlx_ptr, win, 25, vp += 30, WHITE, "CONTROLS :");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'R' : RESET DEFAULTS");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'W'/'A'/'S'/'D' : MOVE");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'Z'/'X' : ZOOM IN/OUT");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20,
+		WHITE, "'Q'/'E' : CHANGE ALTITUDE");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'1'/'2' : ROTATE X");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'3'/'4' : ROTATE Y");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'5'/'6' : ROTATE Z");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20,
+		WHITE, "'TAB' : TOOGLE PERSPECTIVE");
+	mlx_string_put(mlx_ptr, win, 40, vp += 20, WHITE, "'C' : CHANGE COLOR");
 }
 
-void	render_background(t_img *img, int color)
+void	draw_map(t_data *data)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (i < WINDOW_HEIGHT)
+	ft_bzero(data->img->addr, W_WIDTH * W_HEIGHT * (data->img->bpp / 8));
+	if (data->zoom)
 	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
+		y = -1;
+		while (++y < data->map->height)
 		{
-			img_pix_put(img, j++, i, color);
+			x = -1;
+			while (++x < data->map->width)
+			{
+				if (x < data->map->width - 1)
+					bresenham(data,
+						transform_point(data, create_point(x, y, data)),
+						transform_point(data, create_point(x + 1, y, data)));
+				if (y < data->map->height - 1)
+					bresenham(data,
+						transform_point(data, create_point(x, y, data)),
+						transform_point(data, create_point(x, y + 1, data)));
+			}
 		}
-		i++;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win, data->img->mlx_img, 0, 0);
+	draw_menu(data);
 }
 
-int	render(t_data *data)
+void	put_pixel(t_data *data, int x, int y, int color)
 {
-	if (data->win_ptr == NULL)
-		return (1);
-	render_background(&data->img, WHITE_PIXEL);
-	/*render_rect(&data->img, (t_rect){0, 0, 500, 300, RED_PIXEL});*/
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
-	return (0);
+	int	pixel;
+
+	if (x >= W_WIDTH || y >=W_HEIGHT || x < 0 || y < 0)
+		return ;
+	pixel = (y * data->img->line_len) + (x * (data->img->bpp / 8));
+	if (data->img->endian == 1)
+	{
+		data->img->addr[pixel + 0] = (color >> AS);
+		data->img->addr[pixel + 1] = (color >> RS) & BM;
+		data->img->addr[pixel + 2] = (color >> GS) & BM;
+		data->img->addr[pixel + 3] = (color) & BM;
+	}
+	else if (data->img->endian == 0)
+	{
+		data->img->addr[pixel + 0] = (color) & BM;
+		data->img->addr[pixel + 1] = (color >> GS) & BM;
+		data->img->addr[pixel + 2] = (color >> RS) & BM;
+		data->img->addr[pixel + 3] = (color >> AS);
+	}
 }

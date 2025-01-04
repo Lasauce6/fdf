@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:54:13 by rbaticle          #+#    #+#             */
-/*   Updated: 2024/12/19 16:22:56 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:41:22 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ char	*get_next_line(int fd);
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
 # endif
+
+int		ft_atoi_base(char *str, char *base);
 
 #endif

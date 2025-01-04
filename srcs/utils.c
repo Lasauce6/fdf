@@ -6,26 +6,45 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 15:00:53 by rbaticle          #+#    #+#             */
-/*   Updated: 2024/12/23 15:31:24 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:41:59 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+void	check_filename(const char *filename)
 {
-	return (red << 16 | green << 16 | blue << 16);
+	size_t		len;
+	size_t		ext_len;
+	const char	*extension;
+
+	extension = ".fdf";
+	len = ft_strlen(filename);
+	ext_len = ft_strlen(extension);
+	if (len < ext_len
+		|| ft_strncmp(filename + len - ext_len, extension, 4) != 0)
+		exit_error(INVALID_FILENAME_ERROR);
 }
 
-void	free_split(char **tab)
+int	calc_z_value(int z, t_map *map)
 {
-	int	i;
+	if (z < map->min_z)
+		map->min_z = z;
+	if (z > map->max_z)
+		map->max_z = z;
+	return (z);
+}
 
-	i = 0;
-	while (tab[i])
+int	convert_hex_color(char *color, t_map *map)
+{
+	while (ft_isdigit(*color) || *color == '-'
+		|| *color == '+' || *color == ',')
+		color++;
+	if (*color && *color == 'x')
 	{
-		free(tab[i]);
-		i++;
+		map->iscolor = 1;
+		color++;
+		return (ft_atoi_base(color, HEX_BASE));
 	}
-	free(tab);
+	return (WHITE);
 }

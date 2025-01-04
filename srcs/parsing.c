@@ -5,28 +5,92 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 15:28:14 by rbaticle          #+#    #+#             */
-/*   Updated: 2024/12/23 15:41:23 by rbaticle         ###   ########.fr       */
+/*   Created: 2024/12/28 22:12:10 by rbaticle          #+#    #+#             */
+/*   Updated: 2025/01/02 16:27:00 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int	parse(char *file)
+static int	find_width(char **split)
 {
-	char	**map;
-	char	*line;
-	int		fd;
+	int	i;
 
-	map = ft_split(file, '.');
-	if (ft_strncmp(map[-1], ".fdf", 4))
-		return (free_split(map), 1);
-	fd = open(file, O_RDONLY);
+	if (!split)
+		exit_error(MAP_EMPTY_ERROR);
+	if (!*split)
+		exit_error(MAP_EMPTY_ERROR);
+	i = 0;
+	while (split[i])
+		i++;
+	free_split(split);
+	return (i);
+}
+
+static void	get_map_size(int fd, t_map *map)
+{
+	char	*line;
+	char	**split;
+
 	line = get_next_line(fd);
-	if (!line)
-		return (1);
+	split = ft_split(line, ' ');
+	map->width = find_width(split);
 	while (line)
 	{
-
+		map->height++;
+		free(line);
+		line = get_next_line(fd);
 	}
+	free(line);
+	close(fd);
+}
+
+static void	parse_map(int fd, t_map *map)
+{
+	int		i;
+	int		j;
+	char	*line;
+	char	**split;
+
+	i = -1;
+	alloc_map(map);
+	while (++i < map->height)
+	{
+		line = get_next_line(fd);
+		split = ft_split(line, ' ');
+		if (!split[0] || !split[1])
+		{
+			free_map(map);
+			exit_error(MEM_ALLOC_ERROR);
+		}
+		j = -1;
+		while (split[++j])
+		{
+			map->z_map[i][j] = calc_z_value(ft_atoi(split[j]), map);
+			map->colors[i][j] = convert_hex_color(split[j], map);
+		}
+		free(line);
+		free_split(split);
+	}
+}
+
+t_map	*init_map(char *file)
+{
+	int		fd;
+	t_map	*map;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		exit_error(FILE_OPEN_ERROR);
+	map = ft_calloc(1, sizeof(t_map));
+	if (map == NULL)
+		exit_error(MEM_ALLOC_ERROR);
+	get_map_size(fd, map);
+	close(fd);
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		exit_error(FILE_OPEN_ERROR);
+	parse_map(fd, map);
+	close(fd);
+	return (map);
 }
