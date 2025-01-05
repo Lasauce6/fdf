@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 21:43:21 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 12:12:24 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/05 14:46:36 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 #define KEY_6 54
 
 // Transformations
-#define TRANS 2.0
+#define TRANS 4.0
 #define ROT 0.01
 #define ZOOM 0.1
 #define TRANS_ALT 0.01

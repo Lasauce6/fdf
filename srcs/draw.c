@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:48:11 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 12:15:46 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:20:03 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	put_pixel(t_data *data, int x, int y, int color)
 {
 	int	pixel;
 
-	if (x >= W_WIDTH || y >=W_HEIGHT || x < 0 || y < 0)
+	if (x >= W_WIDTH || y >= W_HEIGHT || x < 0 || y < 0)
 		return ;
 	pixel = (y * data->img->line_len) + (x * (data->img->bpp / 8));
 	if (data->img->endian == 1)

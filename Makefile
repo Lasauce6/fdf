@@ -6,7 +6,7 @@
 #    By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/19 16:06:00 by rbaticle          #+#    #+#              #
-#    Updated: 2025/01/04 20:36:58 by rbaticle         ###   ########.fr        #
+#    Updated: 2025/01/05 14:40:57 by rbaticle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS_NAMES = utils.c error.c parsing.c \
 			 draw.c handle_keypress.c bresenham.c \
 			 colors.c transformation.c rotation.c
 SRCS_DIR = ./srcs/
-SRCS = main.c ./ft_printf/ft_printf.c $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
+SRCS = main.c $(addprefix $(SRCS_DIR), $(SRCS_NAMES))
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

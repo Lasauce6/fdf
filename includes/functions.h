@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 21:51:16 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/03 13:13:58 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/05 15:03:36 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_map	*init_map(char *file);
 
 // Free
 void	free_split(char **split);
+void	free_split_line(char **split, char *line);
 void	free_map(t_map *map);
 void	alloc_map(t_map *map);
 int		close_window(t_data *data);
