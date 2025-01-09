@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:11:45 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/05 15:03:24 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:45:08 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_split_line(char **split, char *line)
+void	free_split_line(char **split, char *line, int fd)
 {
 	if (split)
 		free_split(split);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 	if (line)
 		free(line);
 }

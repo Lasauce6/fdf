@@ -6,11 +6,13 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 21:51:16 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/05 15:03:36 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:45:23 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "structs.h"
+#ifndef FUNCTIONS_H
+
+# include "structs.h"
 
 // Error
 void	exit_error(int exit_status);
@@ -20,7 +22,7 @@ t_map	*init_map(char *file);
 
 // Free
 void	free_split(char **split);
-void	free_split_line(char **split, char *line);
+void	free_split_line(char **split, char *line, int fd);
 void	free_map(t_map *map);
 void	alloc_map(t_map *map);
 int		close_window(t_data *data);
@@ -61,3 +63,5 @@ t_point	create_point(int x, int y, t_data *data);
 void	rot_x(t_data *data, int *y, int *z);
 void	rot_y(t_data *data, int *x, int *z);
 void	rot_z(t_data *data, int *x, int *y);
+
+#endif

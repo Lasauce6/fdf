@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:21:59 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 11:59:15 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:25:54 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	adjust_zoom(int keycode, t_data *data)
 	}
 	if (keycode == Z_KEY)
 	{
-		if (data->zoom < INT_MAX)
+		if (data->zoom < FLT_MAX)
 			data->zoom += ZOOM;
 	}
 }

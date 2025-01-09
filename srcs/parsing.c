@@ -6,26 +6,20 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 22:12:10 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/05 15:04:41 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:05:09 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static int	find_width(char **split, t_map *map)
+static int	find_width(char **split, t_map *map, char *line, int fd)
 {
 	int	i;
 
-	if (!split)
-	{
-		free_map(map);
-		free_split(split);
-		exit_error(MAP_EMPTY_ERROR);
-	}
 	if (!*split)
 	{
 		free_map(map);
-		free_split(split);
+		free_split_line(split, line, fd);
 		exit_error(MAP_EMPTY_ERROR);
 	}
 	i = 0;
@@ -43,15 +37,20 @@ static void	get_map_size(int fd, t_map *map)
 	line = get_next_line(fd);
 	split = ft_split(line, ' ');
 	if (!split || !line)
-		free_split_line(split, line);
-	map->width = find_width(split, map);
+	{
+		free_split_line(split, line, fd);
+		free_map(map);
+		exit_error(MAP_EMPTY_ERROR);
+	}
+	map->width = find_width(split, map, line, fd);
 	while (line)
 	{
 		map->height++;
 		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
+	if (line)
+		free(line);
 	close(fd);
 }
 
@@ -69,17 +68,18 @@ static void	parse_map(int fd, t_map *map)
 		line = get_next_line(fd);
 		split = ft_split(line, ' ');
 		if (!split || !line)
-			free_split_line(split, line);
+			(free_split_line(split, line, fd), free_map(map),
+				exit_error(MAP_EMPTY_ERROR));
 		if (!split[0] || !split[1])
-			(free_split_line(split, line), free_map(map),
-				exit_error(MEM_ALLOC_ERROR));
+			(free_split_line(split, line, fd), free_map(map),
+				exit_error(MAP_EMPTY_ERROR));
 		j = -1;
 		while (split[++j])
 		{
 			map->z_map[i][j] = calc_z_value(ft_atoi(split[j]), map);
 			map->colors[i][j] = convert_hex_color(split[j], map);
 		}
-		free_split_line(split, line);
+		(free_split(split), free(line));
 	}
 }
 

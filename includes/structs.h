@@ -6,9 +6,11 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 21:48:33 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 11:59:21 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:22:25 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STRUCTS_H
 
 typedef struct s_point
 {
@@ -54,3 +56,5 @@ typedef struct s_data
 	float	alt;
 	int		color_change;
 }	t_data;
+
+#endif
