@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:52:48 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 12:13:52 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:16:36 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_data	*init_data(t_map *map)
 		return (NULL);
 	data->img = ft_calloc(1, sizeof(t_img));
 	if (data->img == NULL)
-		return (NULL);
+		return (free(data), NULL);
 	data->map = map;
 	data->color_change = 0;
 	reset_default(data);

@@ -6,7 +6,7 @@
 /*   By: rbaticle <rbaticle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:51:35 by rbaticle          #+#    #+#             */
-/*   Updated: 2025/01/04 12:13:14 by rbaticle         ###   ########.fr       */
+/*   Updated: 2025/01/09 12:14:28 by rbaticle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	start_mlx(t_map *map)
 
 	data = init_data(map);
 	if (data == NULL)
+	{
+		free_map(map);
 		exit_error(MEM_ALLOC_ERROR);
+	}
 	init_mlx(data);
 	mlx_hook(data->win, 2, (1L << 0), &handle_keypress, data);
 	mlx_hook(data->win, 17, 0, &close_window, data);
